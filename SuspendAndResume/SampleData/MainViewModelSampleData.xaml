@@ -1,0 +1,12 @@
+﻿<local:MainViewModel 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:SuspendAndResume">
+    
+    <local:MainViewModel.Computers>
+        <local:Computer ID="ID1" Name="Media Center" State="Online"/>
+        <local:Computer ID="ID2" Name="Home Server" State="Offline"/>
+        <local:Computer ID="ID3" Name="Laptop" State="Offline"/>
+    </local:MainViewModel.Computers>
+    
+</local:MainViewModel>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  <actionList>
+    <action>
+      <name>Suspend</name>
+    </action>
+    <action>
+      <name>Hibernate</name>
+    </action>
+  </actionList>
+
+  <serviceStateTable>
+    <stateVariable sendEvents="no">
+      <name>Hostname</name>
+      <dataType>string</dataType>
+      <defaultValue>Computer</defaultValue>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>AdapterAddresses</name>
+      <dataType>string</dataType>
+      <defaultValue><![CDATA[ <Adapters/> ]]></defaultValue>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>Capabilities</name>
+      <dataType>int</dataType>
+      <defaultValue>0</defaultValue>
+    </stateVariable>
+  </serviceStateTable>
+</scpd>

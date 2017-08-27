@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  
+  <?define LogSourceName = MichalStrehovsky-UPnPPowerControl ?>
+  <?define ServiceName = UpnpPowerControl ?>
+  
+  <Product
+    Name="UPnP Power Control Service"
+    Id="*"
+    UpgradeCode="{AB644A57-C3C6-4046-99A4-6B2A93EC4E99}"
+    Manufacturer="Michal Strehovsky"
+    Version="1.0.0.0"
+    Language="1033">
+    <Package
+      InstallerVersion="200"
+      Languages="1033"
+      Compressed="yes" />
+ 
+    <Media Id="1" Cabinet="Setup.cab" EmbedCab="yes" />
+ 
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="DIR_Product" Name="UPnP Power Control">
+          <Component Id="COMP_Service" Guid="{BB181840-C488-4874-A805-2A56980594F9}">
+            <File Id="FILE_PowerControlService_exe" Name="PowerControlService.exe" Source="..\Release\PowerControlService.exe" KeyPath="yes" DiskId="1"/>
+            <File Id="FILE_PowerStateService_xml" Name="PowerStateService.xml" Source="..\Release\PowerStateService.xml" KeyPath="no" DiskId="1"/>
+
+            <ServiceInstall
+              Id="ServiceInstaller"
+              Type="ownProcess"
+              Vital="yes"
+              Name="$(var.ServiceName)"
+              DisplayName="UPnP Power Control Service"
+              Description="Provides power management services over UPnP."
+              Start="auto"
+              Account="NT AUTHORITY\LocalService"
+              ErrorControl="ignore"
+              Interactive="no"
+              >
+            </ServiceInstall>
+            <ServiceControl Id="StartService" Start="install" Stop="both" Remove="uninstall" Name="$(var.ServiceName)" Wait="yes" />
+
+            <RegistryValue
+              Root="HKLM"
+              Key="SYSTEM\CurrentControlSet\Services\EventLog\Application\$(var.LogSourceName)"
+              Name="EventMessageFile"
+              Value="[#FILE_PowerControlService_exe]"
+              Type="string"/>
+            
+            <RegistryValue
+              Root="HKLM"
+              Key="SYSTEM\CurrentControlSet\Services\EventLog\Application\$(var.LogSourceName)"
+              Name="TypesSupported"
+              Value="7"
+              Type="integer"/>
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+ 
+    <Feature Id="ProductFeature" Title="PowerControlService" Level="1">
+      <ComponentRef Id="COMP_Service" />
+    </Feature>
+  </Product>
+</Wix>

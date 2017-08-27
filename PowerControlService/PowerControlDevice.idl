@@ -1,0 +1,30 @@
+[
+   uuid(14CED07A-DFDC-4B1F-A7A9-7B31FC237DF0),
+   version(1.0)
+]
+library PowerControlServiceLib
+{
+   importlib("stdole32.tlb");
+
+   [
+      uuid(42C090EC-2086-436A-AE61-6DB2FC8F20E8),
+      object,
+      dual,
+      pointer_default(unique)
+   ]
+   interface IUPnPPowerControlService : IDispatch
+   {
+      [propget]
+      HRESULT Hostname([out, retval] BSTR *pHostname);
+
+      [propget]
+      HRESULT AdapterAddresses([out, retval] BSTR *pAdapterAddresses);
+
+      [propget]
+      HRESULT Capabilities([out, retval] long *pCapabilities);
+
+      HRESULT Suspend();
+
+      HRESULT Hibernate();
+   };
+};
